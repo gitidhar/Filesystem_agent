@@ -1,7 +1,6 @@
 import os
 from dotenv import load_dotenv
-import openai
-from initial_setups import create_client
+from agent_project.initial_setups import create_client
 
 load_dotenv()
 
