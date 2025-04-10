@@ -1,17 +1,8 @@
-import os
-from dotenv import load_dotenv
-from agent_project.initial_setups import create_client
+from initial_setups import create_client
 
-load_dotenv()
-
-api_key = os.getenv("OPENAI_API_KEY")
-
-client = create_client()
-
-
-response = client.chat.completions.create(
+response = create_client().responses.create(
     model="gpt-4o",
-    messages=[{"role": "user", "content": "I am talking to you from an application, do you read me?!"}]
+    input="Name three fruits grown in Asia"
 )
 
-print(response.choices[0].message.content)
+print(response.output_text)
