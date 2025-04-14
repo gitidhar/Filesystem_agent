@@ -37,13 +37,13 @@ def run(browser: Browser) -> None:
     
     page.goto("https://soundcloud.com/")
     page.locator("#content").get_by_role("searchbox", name="Search").click()
-    page.locator("#content").get_by_role("searchbox", name="Search").fill("isaiah rashad unreleased tracks")
+    page.locator("#content").get_by_role("searchbox", name="Search").fill("frank ocean unreleased tracks")
     page.locator("#content").get_by_role("searchbox", name="Search").press("Enter")
     
     found = False
     for scroll_attempt in range(20):
         # print(f"Scroll attempt {scroll_attempt + 1}")
-        link = page.locator("a").filter(has_text=re.compile("bat cave", re.IGNORECASE))
+        link = page.locator("a").filter(has_text=re.compile("trouble", re.IGNORECASE))
         
         try:
             if link.count() > 0:
