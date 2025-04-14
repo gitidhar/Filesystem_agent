@@ -8,7 +8,7 @@ example_url = "https://soundcloud.com"
 crawler, browser = activate_crawler(example_url, True)
 run(browser)
 
-input("Press Enter to close the browser...") # debug
+# input("Press Enter to close the browser...") # debug
 
 shutdown(crawler, browser)
 
