@@ -1,9 +1,12 @@
 from initial_setups import create_client 
 from crawler import activate_crawler, shutdown
+from crawler_actions import run
 
 example_url = "https://soundcloud.com"
 
 crawler, browser = activate_crawler(example_url, False)
+run(browser)
+
 input("Press Enter to close the browser...") # debug
 
 shutdown(crawler, browser)
@@ -13,7 +16,7 @@ shutdown(crawler, browser)
 # OPEN_AI API Code:
 
 # response = create_client().responses.create(
-#     model="gpt-4o",
+#     model="gpt-4o",   
 #     input="Name three fruits grown in Asia"
 # )
 
