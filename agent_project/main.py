@@ -1,16 +1,16 @@
 from initial_setups import create_client 
 from crawler import activate_crawler, shutdown
 from crawler_actions import run
+from terminal_ui import user_interface
 
+# example_url = "https://soundcloud.com"
 
-example_url = "https://soundcloud.com"
+# crawler, browser = activate_crawler(example_url, True)
+# run(browser)
 
-crawler, browser = activate_crawler(example_url, True)
-run(browser)
+# # input("Press Enter to close the browser...") # debug
 
-# input("Press Enter to close the browser...") # debug
-
-shutdown(crawler, browser)
+# shutdown(crawler, browser)
 
 # playwright codegen https://soundcloud.com --target python
 
@@ -23,3 +23,4 @@ shutdown(crawler, browser)
 
 # print(response.output_text)
 
+user_interface()
