@@ -6,7 +6,7 @@ from terminal_ui import user_interface
 example_url = "https://soundcloud.com"
 
 crawler, browser = activate_crawler(example_url, True)
-run(browser)
+user_interface(browser=browser)
 
 # input("Press Enter to close the browser...") # debug
 

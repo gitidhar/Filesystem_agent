@@ -1,15 +1,16 @@
 from rich.console import Console
 from rich.align import Align
-
+from crawler_actions import run
+from playwright.sync_api import Browser
 console = Console()
 
-def get_reply(user_message: str) -> str:
-    """
-    Replace this with your real backend / chatbot logic.
-    """
-    return f"{user_message}"
+def process_a_reply(user_message: str, browser: Browser) -> list[str, bool]:
+    outcome = run(browser, user_message)
+    if outcome:
+        return [f"fetched ya shit", True]
+    return [f"i could not find that shit haha", False]
 
-def user_interface():
+def user_interface(browser: Browser):
     chat_history = []
 
     chat_history.append(
@@ -21,6 +22,7 @@ def user_interface():
     )
 
     while True:
+        found = False
         console.clear()
 
         for message in chat_history:
@@ -32,18 +34,20 @@ def user_interface():
 
         if user_message.strip().lower() in ("quit", "exit"):
             chat_history.append(
-                Align("Bot: Goodbye!", align="left", style="bold green")
+                Align("Bot: Goodbye!", align="left", style="bold magenta")
             )
             break
 
         chat_history.append(
-            Align(f"You: {user_message}", align="right", style="bold magenta")
+            Align(f"You: {user_message}", align="right", style="bold white  ")
         )
 
-        reply = get_reply(user_message)
+        reply, found = process_a_reply(user_message, browser=browser)
         chat_history.append(
-            Align(f"Bot: {reply}", align="left", style="bold green")
+            Align(f"Bot: {reply}", align="left", style="bold green")  
         )
+        if found:
+            break
 
     console.clear()
     for message in chat_history:

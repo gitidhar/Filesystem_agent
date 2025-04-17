@@ -31,19 +31,19 @@ def handle_response(response):
         output_file = f"song_{int(time.time())}.mp3"
         convert_m3u8_to_mp3(url, output_file)
 
-def run(browser: Browser) -> None:
+def run(browser: Browser, user_input) -> None:
     context = browser.new_context()
     page = context.new_page()
-    
+    tokens = user_input.split(',')
     page.goto("https://soundcloud.com/")
     page.locator("#content").get_by_role("searchbox", name="Search").click()
-    page.locator("#content").get_by_role("searchbox", name="Search").fill("travis scott unreleased")
+    page.locator("#content").get_by_role("searchbox", name="Search").fill(tokens[0])
     page.locator("#content").get_by_role("searchbox", name="Search").press("Enter")
     
     found = False
     for scroll_attempt in range(20):
         # print(f"Scroll attempt {scroll_attempt + 1}")
-        link = page.locator("a").filter(has_text=re.compile("sdp", re.IGNORECASE))
+        link = page.locator("a").filter(has_text=re.compile(tokens[1], re.IGNORECASE))
         
         try:
             if link.count() > 0:
@@ -57,7 +57,7 @@ def run(browser: Browser) -> None:
         time.sleep(1)
 
     if not found:
-        return
+        return found
 
     page.on("request", handle_request)
     page.on("response", handle_response)
@@ -65,3 +65,4 @@ def run(browser: Browser) -> None:
     time.sleep(2)
     page.get_by_role("button", name="Play", exact=True).click()
     time.sleep(2)
+    return found
